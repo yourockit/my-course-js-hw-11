@@ -20,4 +20,4 @@ export default function galleryMarkup({ webformatURL, largeImageURL, tags, likes
     </div>
   </div>
   `
-};
+}

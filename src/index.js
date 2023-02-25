@@ -2,7 +2,7 @@ import QueryAPI from "./js/query";
 import galleryMarkup from "./js/gallery-markup";
 import Notiflix from "notiflix";
 import SimpleLightbox from "simplelightbox";
-import spinnerMarkup from "./js/spinner-markup";
+import { spinnerMarkup } from "./js/spinner-markup";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
 const refs = {
@@ -98,7 +98,3 @@ function smoothScrollGallery() {
         behavior: "smooth",
     });
 };
-
-// window.onload = function onloadSpinner() {
-//     spinner.classList.add('is-hidden');
-// };
