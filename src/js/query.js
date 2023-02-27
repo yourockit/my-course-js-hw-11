@@ -9,7 +9,7 @@ export default class QueryAPI {
     }
 
     async fetchQuery() {
-        const URL = `https://pixabay.com/api/?q=${this.searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.page}&per_page=${this.perPage}`;
+        const URL = `https://pixabay.com/api/?q=${this.searchQuery}&image_type=photo&safesearch=true&page=${this.page}&per_page=${this.perPage}`;
         const API_KEY = '33752530-4b24ec44329786fc732f0a267';
         const response = axios.get(URL, {
             params: {
@@ -33,7 +33,7 @@ export default class QueryAPI {
         this.loadedHits += hits.length;
     }
 
-    resetHits() {
+    resetLoadedHits() {
         this.loadedHits = 0;
     }
 

@@ -3,5 +3,8 @@
 }
 
 .overflow {
-    overflow-y: hidden;
+    @media screen and (min-width: 480px) {
+        overflow-y: hidden;
+        padding-right: 17px;
+    }
 }

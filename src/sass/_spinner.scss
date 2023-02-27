@@ -1,11 +1,17 @@
 .spinner-wrap {
     position: fixed;
-    height: 100%;
+    bottom: 0px;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ffffffca;
+    background: linear-gradient(0, #ffffff 90%, hsla(0, 0%, 100%, 0));
+    z-index: 999;
+}
+
+.full-screen {
+    height: 100%;
+    background: #ffffff;
     z-index: 999;
 }
 
@@ -22,7 +28,7 @@
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: #7e7e7e;
+    background: #4e4e4e;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 

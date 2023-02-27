@@ -17,9 +17,9 @@ window.addEventListener("scroll", throttle(infiniteScroll, 300));
 
 refs.gallery.insertAdjacentHTML('beforebegin', spinnerMarkup);
 const prelaoder = document.querySelector('.spinner-wrap');
-
-let shouldLoad = true; //for infiniteScroll
-
+//for infiniteScroll=======
+let shouldLoad = true;
+//=========================
 const fetchGallery = new QueryAPI();
 let lightbox = new SimpleLightbox('.photo-card a', {
     captions: true,
@@ -29,27 +29,33 @@ let lightbox = new SimpleLightbox('.photo-card a', {
 
 function onClickFormSearch(e) {
     e.preventDefault();
-    shouldLoad = true;
     fetchGallery.query = e.currentTarget.elements.searchQuery.value.trim();
     if (fetchGallery.query === '') {
         Notiflix.Notify.failure('You need to enter what we want to find');
         return;
-    }
+    };
+    prelaoder.classList.add('full-screen');
+    shouldLoad = true;
     fetchGallery.resetPage();
-    fetchGallery.resetHits();
+    fetchGallery.resetLoadedHits();
     clearGalleryMarkup();
     createGalleryMarkup();
 };
 
 function infiniteScroll() {
-    const scrollHeight = refs.gallery.offsetHeight;
-    const scrollY = window.pageYOffset;
+    const scrollHeight = document.body.offsetHeight;
+    const scrollY = Math.ceil(document.documentElement.scrollTop);
     const clientHeight = window.innerHeight;
     const scroll = clientHeight + scrollY;
 
+    if (scrollY === 0) {
+        return;
+    };
+
     if (scroll >= scrollHeight && shouldLoad) {
+        prelaoder.classList.remove('full-screen');
         createGalleryMarkup();
-    }
+    };
 };
 
 async function createGalleryMarkup() {
@@ -65,17 +71,14 @@ async function createGalleryMarkup() {
         if (fetchGallery.loadedHits === totalHits) {
             Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
             shouldLoad = false;
-            fetchGallery.resetHits();
             return;
         };
         prelaoder.classList.remove('is-hidden');
-        refs.body.classList.add('overflow')
         fetchGallery.incrementHits(hits);
         const markup = gallery.hits.map(card => galleryMarkup(card)).join('');
         refs.gallery.insertAdjacentHTML('beforeend', markup);
         lightbox.refresh();
         showLoading(hits.length);
-        console.log(hits.length);
     } catch (error) {
         console.log(error);
     };
@@ -95,18 +98,22 @@ function showLoading(hits) {
             imgArray.push(img.complete);
             const check = imgArray.every(elem => elem === true);
             if (imgArray.length === hits && check === true) {
-                prelaoder.classList.add('is-hidden');
+                prelaoder.classList.add('loaded_hiding')
+                setTimeout(() => {
+                    prelaoder.classList.add('is-hidden');
+                    prelaoder.classList.remove('loaded_hiding');
+                }, 500);
                 refs.body.classList.remove('overflow')
             };
         });
     });
 };
 
-function smoothScrollGallery() {
-    const { height: cardHeight } = refs.gallery.firstElementChild.getBoundingClientRect();
+// function smoothScrollGallery() {
+//     const { height: cardHeight } = refs.gallery.firstElementChild.getBoundingClientRect();
 
-    window.scrollBy({
-        top: cardHeight * 1,
-        behavior: "smooth",
-    });
-};
+//     window.scrollBy({
+//         top: cardHeight * 1,
+//         behavior: "smooth",
+//     });
+// };
