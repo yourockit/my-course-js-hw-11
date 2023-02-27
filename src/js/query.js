@@ -5,6 +5,7 @@ export default class QueryAPI {
         this.searchQuery = '';
         this.page = 1;
         this.perPage = 20;
+        this.loadedHits = 0;
     }
 
     async fetchQuery() {
@@ -26,6 +27,14 @@ export default class QueryAPI {
 
     resetPage() {
         this.page = 1;
+    }
+
+    incrementHits(hits) {
+        this.loadedHits += hits.length;
+    }
+
+    resetHits() {
+        this.loadedHits = 0;
     }
 
     get query() {

@@ -9,6 +9,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-right: 15px;
 }
 
 .search-form {
@@ -57,6 +58,7 @@ input {
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 60px;
+    padding: 30px;
 }
 
 .photo-card {
@@ -69,7 +71,7 @@ input {
 }
 
 img {
-    width: 220px;
-    height: 160px;
+    width: 180px;
+    height: 120px;
     object-fit: cover;
 }
