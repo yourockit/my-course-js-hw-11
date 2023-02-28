@@ -35,6 +35,7 @@ function onClickFormSearch(e) {
         return;
     };
     prelaoder.classList.add('full-screen');
+    refs.body.classList.add('overflow')
     shouldLoad = true;
     fetchGallery.resetPage();
     fetchGallery.resetLoadedHits();
@@ -54,6 +55,7 @@ function infiniteScroll() {
 
     if (scroll >= scrollHeight && shouldLoad) {
         prelaoder.classList.remove('full-screen');
+        refs.body.classList.add('overflow')
         createGalleryMarkup();
     };
 };
