@@ -18,7 +18,8 @@ window.addEventListener("scroll", throttle(infiniteScroll, 300));
 refs.gallery.insertAdjacentHTML('beforebegin', spinnerMarkup);
 const prelaoder = document.querySelector('.spinner-wrap');
 //for infiniteScroll=======
-let shouldLoad = true;
+let shouldLoad = false;
+let loaded = false;
 //=========================
 const fetchGallery = new QueryAPI();
 let lightbox = new SimpleLightbox('.photo-card a', {
@@ -53,7 +54,7 @@ function infiniteScroll() {
         return;
     };
 
-    if (scroll >= scrollHeight && shouldLoad) {
+    if (scroll >= scrollHeight && shouldLoad && loaded) {
         prelaoder.classList.remove('full-screen');
         refs.body.classList.add('overflow');
         createGalleryMarkup();
@@ -95,18 +96,20 @@ function clearGalleryMarkup() {
 
 function showLoading(hits) {
     let imgArray = [];
+    loaded = false;
     const imagesAll = document.querySelectorAll('img');
     imagesAll.forEach(function(img) {
         img.addEventListener('load', () => {
             imgArray.push(img.complete);
             const check = imgArray.every(elem => elem === true);
             if (imgArray.length === hits && check === true) {
-                prelaoder.classList.add('loaded_hiding')
+                prelaoder.classList.add('loaded_hiding');
                 setTimeout(() => {
                     prelaoder.classList.add('is-hidden');
                     prelaoder.classList.remove('loaded_hiding');
                 }, 300);
-                refs.body.classList.remove('overflow')
+                refs.body.classList.remove('overflow');
+                loaded = true;
             };
         });
     });
