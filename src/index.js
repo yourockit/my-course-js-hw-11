@@ -105,7 +105,7 @@ function showLoading(hits) {
                 setTimeout(() => {
                     prelaoder.classList.add('is-hidden');
                     prelaoder.classList.remove('loaded_hiding');
-                }, 500);
+                }, 300);
                 refs.body.classList.remove('overflow')
             };
         });
