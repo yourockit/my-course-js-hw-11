@@ -35,7 +35,7 @@ function onClickFormSearch(e) {
         return;
     };
     prelaoder.classList.add('full-screen');
-    refs.body.classList.add('overflow')
+    refs.body.classList.add('overflow');
     shouldLoad = true;
     fetchGallery.resetPage();
     fetchGallery.resetLoadedHits();
@@ -55,7 +55,7 @@ function infiniteScroll() {
 
     if (scroll >= scrollHeight && shouldLoad) {
         prelaoder.classList.remove('full-screen');
-        refs.body.classList.add('overflow')
+        refs.body.classList.add('overflow');
         createGalleryMarkup();
     };
 };
@@ -73,7 +73,7 @@ async function createGalleryMarkup() {
         if (fetchGallery.loadedHits === totalHits) {
             Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
             shouldLoad = false;
-            refs.body.classList.remove('overflow')
+            refs.body.classList.remove('overflow');
             return;
         };
         prelaoder.classList.remove('is-hidden');
