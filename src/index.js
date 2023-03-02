@@ -10,30 +10,19 @@ const refs = {
     body: document.querySelector('body'),
     form: document.querySelector('.search-form'),
     gallery: document.querySelector('.gallery'),
+    galleryWrap: document.querySelector('.gallery-wrap'),
 };
-
-//================
-const galleryWrap = document.querySelector('.gallery-wrap');
-//===============
 
 refs.form.addEventListener('submit', onClickFormSearch);
 window.addEventListener("scroll", throttle(infiniteScroll, 300));
 
-// refs.gallery.insertAdjacentHTML('beforebegin', spinnerMarkup);
-
-//===============
-galleryWrap.insertAdjacentHTML('afterend', spinnerMarkup);
-//===============
-
-
+refs.galleryWrap.insertAdjacentHTML('afterend', spinnerMarkup);
 const prelaoder = document.querySelector('.spinner-wrap');
+
 //for infiniteScroll=======
 let shouldLoad = false;
-//=========================
-
-//========================
 let loaded = false;
-//=======================
+//=========================
 
 const fetchGallery = new QueryAPI();
 let lightbox = new SimpleLightbox('.photo-card a', {
@@ -62,8 +51,7 @@ function infiniteScroll() {
     const scrollY = Math.ceil(window.scrollY);
     const clientHeight = window.innerHeight;
     const scroll = clientHeight + scrollY;
-
-    const threshold = height - clientHeight; //======
+    const threshold = height - clientHeight;
 
     if (scrollY === 0) {
         return;
@@ -71,7 +59,6 @@ function infiniteScroll() {
 
     if (scroll >= threshold && shouldLoad && !loaded) {
         prelaoder.classList.remove('full-screen');
-        // refs.body.classList.add('overflow');
         createGalleryMarkup();
     };
 };
@@ -89,58 +76,43 @@ async function createGalleryMarkup() {
         if (fetchGallery.loadedHits === totalHits) {
             Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
             shouldLoad = false;
-            // refs.body.classList.remove('overflow');
             return;
         };
 
-        //=============
         const galleryX = document.querySelector(`.gallery-${fetchGallery.page-1}`);
         galleryX.classList.add('is-hidden');
-        //============
 
         prelaoder.classList.remove('is-hidden');
         fetchGallery.incrementHits(hits);
         const markup = gallery.hits.map(card => galleryMarkup(card)).join('');
-        // refs.gallery.insertAdjacentHTML('beforeend', markup);
 
-        //=======================
         galleryX.insertAdjacentHTML('beforeend', markup);
 
         loaded = true;
-        //=======================
 
         lightbox.refresh();
         showLoading(hits.length, galleryX);
-        //=========
-        incrementDiv();
-        //=========
+        createIncrementDivTemplate();
     } catch (error) {
         console.log(error);
     };
 };
 
-//===============
-function incrementDiv() {
-    const divXt = `<div class="gallery-x gallery-${fetchGallery.page}"></div>`;
 
+function createIncrementDivTemplate() {
+    const galleryXTeamplate = `<div class="gallery-x gallery-${fetchGallery.page}"></div>`;
     const galleryDivX = document.querySelector(`.gallery-${fetchGallery.page-1}`);
-
-    galleryDivX.insertAdjacentHTML('afterend', divXt);
-
+    galleryDivX.insertAdjacentHTML('afterend', galleryXTeamplate);
     galleryDivX.classList.add('is-hidden');
 };
-//================
 
 function clearGalleryMarkup() {
     while (refs.gallery.firstChild) {
         refs.gallery.removeChild(refs.gallery.lastChild);
     };
-    //==================
-    const container = document.querySelector('.gallery-wrap');
-    const items = [...container.children];
+    const items = [...refs.galleryWrap.children];
     const index = items.findIndex(n => n.id === 'point');
-    items.slice(index + 1).forEach(n => container.removeChild(n));
-    //===================
+    items.slice(index + 1).forEach(n => refs.galleryWrap.removeChild(n));
 };
 
 function showLoading(hits, galleryX) {
@@ -157,8 +129,8 @@ function showLoading(hits, galleryX) {
                     prelaoder.classList.remove('loaded_hiding');
                 }, 300);
                 refs.body.classList.remove('padding-right');
-                galleryX.classList.remove('is-hidden'); //===
-                loaded = false; //===
+                galleryX.classList.remove('is-hidden');
+                loaded = false;
                 shouldLoad = true;
             };
         });
