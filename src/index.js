@@ -11,6 +11,7 @@ const refs = {
     form: document.querySelector('.search-form'),
     gallery: document.querySelector('.gallery'),
     galleryWrap: document.querySelector('.gallery-wrap'),
+    endGallery: document.querySelector('.end-gallery'),
 };
 
 refs.form.addEventListener('submit', onClickFormSearch);
@@ -40,6 +41,7 @@ function onClickFormSearch(e) {
     };
     refs.body.classList.add('padding-right');
     prelaoder.classList.add('full-screen');
+    refs.endGallery.classList.add('is-hidden');
     fetchGallery.resetPage();
     fetchGallery.resetLoadedHits();
     clearGalleryMarkup();
@@ -75,6 +77,7 @@ async function createGalleryMarkup() {
         };
         if (fetchGallery.loadedHits === totalHits) {
             Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
+            refs.endGallery.classList.remove('is-hidden');
             shouldLoad = false;
             return;
         };
@@ -97,7 +100,6 @@ async function createGalleryMarkup() {
         console.log(error);
     };
 };
-
 
 function createIncrementDivTemplate() {
     const galleryXTeamplate = `<div class="gallery-x gallery-${fetchGallery.page}"></div>`;

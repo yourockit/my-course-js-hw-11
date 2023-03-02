@@ -53,9 +53,9 @@ input {
     height: 50px;
     text-transform: uppercase;
     outline: none;
-    color: $collor-font-secondary;
-    background-color: $collor-bg;
-    border: 4px solid $collor-secondary;
+    color: $collor-font;
+    background-color: $collor-main;
+    border: 4px solid $collor-main;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25), 0 4px 4px rgba(0, 0, 0, 0.22);
     border-radius: 4px;
     margin-right: 10px;
@@ -124,4 +124,11 @@ img {
 .info-item {
     font-weight: 200;
     color: $collor-main;
+}
+
+.end-gallery {
+    text-align: center;
+    width: 100%;
+    color: $collor-font-secondary;
+    margin-top: 10px;
 }
