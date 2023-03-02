@@ -1,3 +1,8 @@
+//VAR======
+$collor-main: #fafafa;
+$collor-secondary: #474747;
+$collor-bg: #2a2a2a;
+$collor-font: #2a2a2a;
 .spinner-wrap {
     // position: fixed;
     // bottom: 0px;
@@ -5,15 +10,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(0, #ffffff 90%, hsla(0, 0%, 100%, 0));
+    background: linear-gradient(0, $collor-bg 90%, hsla(0, 0%, 100%, 0));
     z-index: 999;
 }
 
 .full-screen {
     position: fixed;
     height: 100%;
-    background: #ffffff;
+    background: $collor-bg;
     z-index: 999;
+    padding-right: 17px;
 }
 
 .lds-ellipsis {
@@ -29,7 +35,7 @@
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    background: #4e4e4e;
+    background: $collor-main;
     animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 

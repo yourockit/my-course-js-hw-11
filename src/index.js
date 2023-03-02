@@ -49,8 +49,8 @@ function onClickFormSearch(e) {
         Notiflix.Notify.failure('You need to enter what we want to find');
         return;
     };
+    refs.body.classList.add('padding-right');
     prelaoder.classList.add('full-screen');
-    // refs.body.classList.add('overflow');
     fetchGallery.resetPage();
     fetchGallery.resetLoadedHits();
     clearGalleryMarkup();
@@ -122,11 +122,12 @@ async function createGalleryMarkup() {
 //===============
 function incrementDiv() {
     const divXt = `<div class="gallery-x gallery-${fetchGallery.page}"></div>`;
-    galleryWrap.insertAdjacentHTML('beforeend', divXt);
 
-    const galleyDivX = document.querySelector(`.gallery-${fetchGallery.page}`);
+    const galleryDivX = document.querySelector(`.gallery-${fetchGallery.page-1}`);
 
-    galleyDivX.classList.add('is-hidden');
+    galleryDivX.insertAdjacentHTML('afterend', divXt);
+
+    galleryDivX.classList.add('is-hidden');
 };
 //================
 
@@ -155,7 +156,7 @@ function showLoading(hits, galleryX) {
                     prelaoder.classList.add('is-hidden');
                     prelaoder.classList.remove('loaded_hiding');
                 }, 300);
-                // refs.body.classList.remove('overflow');
+                refs.body.classList.remove('padding-right');
                 galleryX.classList.remove('is-hidden'); //===
                 loaded = false; //===
                 shouldLoad = true;
