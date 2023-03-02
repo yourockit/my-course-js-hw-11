@@ -1,6 +1,6 @@
 .spinner-wrap {
-    position: fixed;
-    bottom: 0px;
+    // position: fixed;
+    // bottom: 0px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -10,6 +10,7 @@
 }
 
 .full-screen {
+    position: fixed;
     height: 100%;
     background: #ffffff;
     z-index: 999;

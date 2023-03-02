@@ -56,7 +56,26 @@ input {
     margin-right: 10px;
 }
 
-.gallery {
+// .gallery {
+//     @media screen and (min-width: 480px) {
+//         width: 480px;
+//     }
+//     @media screen and (min-width: 1280px) {
+//         width: 1200px;
+//     }
+//     display: flex;
+//     flex-wrap: wrap;
+//     justify-content: center;
+//     margin-top: 70px;
+//     padding-bottom: 60px;
+// }
+//=========================
+.gallery-wrap {
+    margin-top: 70px;
+    padding-bottom: 30px;
+}
+
+.gallery-x {
     @media screen and (min-width: 480px) {
         width: 480px;
     }
@@ -66,10 +85,9 @@ input {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 60px;
-    padding-bottom: 60px;
 }
 
+//=============================
 .photo-card {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25), 0 4px 4px rgba(0, 0, 0, 0.22);
     margin: 10px;
@@ -78,11 +96,11 @@ input {
 }
 
 .photo-card:hover {
-    transform: scale(1.03);
-    -webkit-transform: scale(1.03);
-    -moz-transform: scale(1.03);
-    -ms-transform: scale(1.03);
-    -o-transform: scale(1.03);
+    transform: scale(1.1);
+    -webkit-transform: scale(1.11);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
 }
 
 .photo-card a {
