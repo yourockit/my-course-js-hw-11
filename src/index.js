@@ -75,39 +75,33 @@ async function createGalleryMarkup() {
             clearGalleryMarkup();
             return;
         };
-        if (fetchGallery.loadedHits === totalHits) {
-            Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
-            refs.endOfGallery.classList.remove('is-hidden');
-            shouldLoad = false;
-            return;
-        };
-        if (hits.length === totalHits) {
-            refs.endOfGallery.classList.remove('is-hidden');
-        };
 
         const galleryX = document.querySelector(`.gallery-${fetchGallery.page-1}`);
         galleryX.classList.add('is-hidden');
 
-        fetchGallery.incrementHits(hits);
-
         const markup = gallery.hits.map(card => galleryMarkup(card)).join('');
         galleryX.insertAdjacentHTML('beforeend', markup);
+
+        if (fetchGallery.loadedHits === totalHits || hits.length === totalHits) {
+            Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
+            refs.endOfGallery.classList.remove('is-hidden');
+            galleryX.classList.remove('is-hidden');
+            shouldLoad = false;
+            return;
+        };
+
+        const galleryXTeamplate = `<div class="gallery-x gallery-${fetchGallery.page} is-hidden"></div>`;
+        galleryX.insertAdjacentHTML('afterend', galleryXTeamplate);
+
+        fetchGallery.incrementHits(hits);
 
         loaded = true;
 
         lightbox.refresh();
         showLoading(hits.length, galleryX);
-        createIncrementDivTemplate();
     } catch (error) {
         console.log(error);
     };
-};
-
-function createIncrementDivTemplate() {
-    const galleryXTeamplate = `<div class="gallery-x gallery-${fetchGallery.page}"></div>`;
-    const galleryDivX = document.querySelector(`.gallery-${fetchGallery.page-1}`);
-    galleryDivX.insertAdjacentHTML('afterend', galleryXTeamplate);
-    galleryDivX.classList.add('is-hidden');
 };
 
 function clearGalleryMarkup() {
