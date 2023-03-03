@@ -11,7 +11,7 @@ const refs = {
     form: document.querySelector('.search-form'),
     gallery: document.querySelector('.gallery'),
     galleryWrap: document.querySelector('.gallery-wrap'),
-    endGallery: document.querySelector('.end-gallery'),
+    endOfGallery: document.querySelector('.gallery-end'),
 };
 
 refs.form.addEventListener('submit', onClickFormSearch);
@@ -41,7 +41,7 @@ function onClickFormSearch(e) {
     };
     refs.body.classList.add('padding-right');
     prelaoder.classList.add('full-screen');
-    refs.endGallery.classList.add('is-hidden');
+    refs.endOfGallery.classList.add('is-hidden');
     fetchGallery.resetPage();
     fetchGallery.resetLoadedHits();
     clearGalleryMarkup();
@@ -75,17 +75,22 @@ async function createGalleryMarkup() {
             clearGalleryMarkup();
             return;
         };
+        console.log(fetchGallery.loadedHits);
+        console.log(hits.length);
+        console.log(totalHits);
         if (fetchGallery.loadedHits === totalHits) {
             Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
-            refs.endGallery.classList.remove('is-hidden');
+            refs.endOfGallery.classList.remove('is-hidden');
             shouldLoad = false;
             return;
+        };
+        if (hits.length === totalHits) {
+            refs.endOfGallery.classList.remove('is-hidden');
         };
 
         const galleryX = document.querySelector(`.gallery-${fetchGallery.page-1}`);
         galleryX.classList.add('is-hidden');
 
-        prelaoder.classList.remove('is-hidden');
         fetchGallery.incrementHits(hits);
         const markup = gallery.hits.map(card => galleryMarkup(card)).join('');
 
@@ -120,6 +125,7 @@ function clearGalleryMarkup() {
 function showLoading(hits, galleryX) {
     let imgArray = [];
     const imagesAll = document.querySelectorAll('img');
+    prelaoder.classList.remove('is-hidden');
     imagesAll.forEach(function(img) {
         img.addEventListener('load', () => {
             imgArray.push(img.complete);
@@ -138,12 +144,3 @@ function showLoading(hits, galleryX) {
         });
     });
 };
-
-// function smoothScrollGallery() {
-//     const { height: cardHeight } = refs.gallery.firstElementChild.getBoundingClientRect();
-
-//     window.scrollBy({
-//         top: cardHeight * 1,
-//         behavior: "smooth",
-//     });
-// };
