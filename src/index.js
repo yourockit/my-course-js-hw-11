@@ -75,9 +75,6 @@ async function createGalleryMarkup() {
             clearGalleryMarkup();
             return;
         };
-        console.log(fetchGallery.loadedHits);
-        console.log(hits.length);
-        console.log(totalHits);
         if (fetchGallery.loadedHits === totalHits) {
             Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
             refs.endOfGallery.classList.remove('is-hidden');
@@ -92,8 +89,8 @@ async function createGalleryMarkup() {
         galleryX.classList.add('is-hidden');
 
         fetchGallery.incrementHits(hits);
-        const markup = gallery.hits.map(card => galleryMarkup(card)).join('');
 
+        const markup = gallery.hits.map(card => galleryMarkup(card)).join('');
         galleryX.insertAdjacentHTML('beforeend', markup);
 
         loaded = true;

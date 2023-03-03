@@ -10,10 +10,7 @@
 }
 
 .full-screen {
-    position: fixed;
-    height: 100%;
-    background: $collor-bg;
-    z-index: 999;
+    top: 200px;
 }
 
 .lds-ellipsis {
